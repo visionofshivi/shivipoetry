@@ -1,0 +1,194 @@
+p {
+  margin: 2%;
+}
+.post-content {
+  margin: 2%;
+  width: 65%;
+}
+.post-content {
+  box-shadow: 0 0 4px gray;
+  padding: 2%;
+  transition: ease all 0.2s;
+}
+
+.categories {
+  display: flex;
+  justify-content: flex-start;
+}
+.categories a {
+  color: #fff;
+  display: block;
+  font-size: 12px;
+  font-weight: 300;
+  text-decoration: none;
+  margin: 10px;
+  margin-left: 0;
+  padding: 6px 16px;
+  text-transform: capitalize;
+  background-color: #0c4da2;
+}
+.categories a:hover {
+  background-color: #001b70;
+}
+
+.post-date-and-author {
+  display: flex;
+  justify-content: flex-start;
+  color: #767676;
+  margin: 10px 0;
+}
+.post-date-and-author > div {
+  cursor: pointer;
+  font-weight: 300;
+}
+.post-date-and-author > div:hover {
+  color: #0c4da2;
+}
+.post-date::before {
+  content: '\f073';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.author::before {
+  content: '\f007';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.comments::before {
+  content: '\f075';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.author {
+  margin: 0 20px;
+}
+.post-content a {
+  text-decoration: none;
+}
+
+.tags {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 200;
+  margin: 2% 0;
+}
+.tag-title::before {
+  content: '\f02c';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin-right: 3px;
+}
+.tag-item {
+  border: 1px solid #e1e1e1;
+  margin: 0 1%;
+  font-size: 12px;
+  padding: 2px 16px;
+  color: #999;
+}
+.tag-item:hover {
+  color: #0c4da2;
+  border-color: #999;
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-links a {
+  background-color: #0c4da2;
+  padding: 1% 2%;
+  width: 25%;
+  color: #fff;
+  font-size: 16px;
+  transition: ease all 0.5s;
+}
+.nav-links a:hover {
+  transition: ease all 0.5s;
+  background-color: #001b70;
+}
+.nav-pre::before {
+  content: '\f0d9';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin-right: 5px;
+}
+.nav-next {
+  text-align: right;
+}
+.nav-next::after {
+  content: '\f0da';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin-left: 5px;
+}
+.divider {
+  margin: 2% 0;
+  border-bottom: 2px dashed gray;
+}
+.post-comments {
+  margin: 2% 0;
+}
+
+.comment-title,
+.related-post-title {
+  font-size: 24px;
+  margin: 2%;
+  margin-left: 0;
+}
+.comment-item {
+  padding: 2%;
+  box-shadow: 0 0 4px #e1e1e1;
+  margin: 1% 0;
+}
+.commenter-name {
+  font-size: 20px;
+  margin: 10px;
+  margin-left: 0;
+}
+.commenter-name::before {
+  content: '\f007';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin-right: 10px;
+}
+.comment-date {
+  font-weight: 300;
+  color: #0c4da2;
+  margin: 1% 0;
+}
+.comment-msg {
+  color: #555;
+}
+
+.post-card {
+  margin: 2% 0;
+  padding: 2%;
+  box-shadow: 0 0 8px #e1e1e1;
+}
+.post-card:hover {
+  box-shadow: 0 0 16px #e1e1e1;
+  transform: scale(1.005);
+}
+.post-card > .post-title {
+  font-size: 20px;
+  margin: 10px;
+  margin-left: 0;
+  color: #333;
+  font-weight: 500;
+}
+.post-card > .post-title:hover {
+  color: #0c4da2;
+}
+.related-post-content {
+  font-size: 16px;
+  color: #555;
+}
+
+.post-date-and-author {
+  font-size: 14px;
+}
