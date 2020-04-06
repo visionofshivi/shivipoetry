@@ -1,11 +1,5 @@
-const {MongoClient} = require('mongodb');
+const {app} = require('./src/router');
 
-const connectionUrl = 'mongodb://127.0.0.1:27017';
-const databaseName = 'shivipoetry';
+const port = process.env.PORT || 3000;
 
-MongoClient.connect(connectionUrl, {useNewUrlParser: true}, (error, client) => {
-  if (error) {
-    return console.log('Unable to connect database');
-  }
-  console.log('connected');
-});
+app.listen(port, () => console.log(`Server is listening on ${port}`));

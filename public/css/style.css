@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+  transition: all 0.5s ease;
+}
+.site-logo {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  color: #0c4da2;
+  padding-left: 2%;
+}
+
+.menu-wrapper {
+  background-color: #0c4da2;
+  display: block;
+  width: 100%;
+}
+
+.fixed-menu-bar {
+  position: fixed;
+  top: 0;
+}
+
+.menu-bar {
+  padding-left: 2%;
+}
+
+@media (min-width: 768px) {
+  .menu-bar a:hover {
+    background-color: #001b70;
+    transition: 1s;
+  }
+}
+
+.home-icon {
+  background-color: #001b70;
+}
+
+.menu-bar ul {
+  list-style: none;
+}
+.menu-bar ul li {
+  display: inline-block;
+  line-height: 48px;
+  margin-right: -3px;
+  position: relative;
+}
+
+.menu-bar a {
+  float: left;
+  font-size: 20px;
+  line-height: 48px;
+  font-weight: 200;
+  text-decoration: none;
+  color: #fff;
+  padding: 0 15px;
+  position: relative;
+  text-transform: uppercase;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.post {
+  width: 65%;
+  margin: 2%;
+}
+.post-card {
+  box-shadow: 0 0 16px gray;
+  padding: 2%;
+  transition: ease all 0.2s;
+}
+.post-card:hover {
+  box-shadow: 0 0 26px gray;
+  transform: scale(1.005);
+  transition: ease all 0.2s;
+}
+
+.post-title {
+  font-size: 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+.post-title:hover {
+  color: #0c4da2;
+}
+.post-date-and-author {
+  display: flex;
+  justify-content: flex-start;
+  color: #767676;
+  margin: 10px 0;
+}
+.post-date-and-author > div {
+  cursor: pointer;
+  font-weight: 300;
+}
+.post-date-and-author > div:hover {
+  color: #0c4da2;
+}
+.post-date::before {
+  content: '\f073';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.author::before {
+  content: '\f007';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.comments::before {
+  content: '\f075';
+  font-family: FontAwesome;
+  font-style: normal;
+  margin: 0 10px;
+}
+.author {
+  margin: 0 20px;
+}
+.post-content a {
+  text-decoration: none;
+}
+.post-divider {
+  border-bottom: 1px dashed gray;
+  margin: 2% 0;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1%;
+}
+footer > a {
+  font-weight: 600;
+  text-decoration: none;
+}
+.top-arrow {
+  background-color: #0c4da2;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  bottom: 20px;
+  position: fixed;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 35px;
+  border-radius: 3px;
+  text-align: center;
+  transition: all 0.5s ease;
+  display: none;
+}
+.top-arrow:hover {
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
