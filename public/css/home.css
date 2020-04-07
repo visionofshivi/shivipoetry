@@ -6,6 +6,8 @@
   box-shadow: 0 0 16px gray;
   padding: 2%;
   transition: ease all 0.2s;
+  max-height: 160px;
+  overflow: hidden;
 }
 .post-card:hover {
   box-shadow: 0 0 26px gray;

@@ -30,7 +30,7 @@ const animateScroll = function () {
       clearInterval(timer);
     }
     maxScrollTop -= 10;
-  }, 1);
+  }, 0.5);
 };
 
 const main = function () {
