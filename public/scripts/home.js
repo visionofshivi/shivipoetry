@@ -14,7 +14,7 @@ const getAuthor = function (authorId, divId) {
 const getComments = function (count, url, commentStatus) {
   let htmlString = '';
   if (commentStatus === 'open' && count) {
-    htmlString = `<a class="comments" href="post/${url}#comments">${count} comments</a>`;
+    htmlString = `<a class="comments" href="post/${url}">${count} comments</a>`;
   }
   return htmlString;
 };

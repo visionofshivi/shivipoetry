@@ -24,42 +24,7 @@
 .post-title:hover {
   color: #0c4da2;
 }
-.post-date-and-author {
-  display: flex;
-  justify-content: flex-start;
-  color: #767676;
-  margin: 10px 0;
-}
-.post-date-and-author a {
-  cursor: pointer;
-  font-weight: 300;
-  text-decoration: none;
-  color: #555;
-}
-.post-date-and-author a:hover {
-  color: #0c4da2;
-}
-.post-date::before {
-  content: '\f073';
-  font-family: FontAwesome;
-  font-style: normal;
-  margin: 0 10px;
-}
-.author::before {
-  content: '\f007';
-  font-family: FontAwesome;
-  font-style: normal;
-  margin: 0 10px;
-}
-.comments::before {
-  content: '\f075';
-  font-family: FontAwesome;
-  font-style: normal;
-  margin: 0 10px;
-}
-.author {
-  margin: 0 20px;
-}
+
 .post-content a {
   text-decoration: none;
 }
