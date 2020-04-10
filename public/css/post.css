@@ -14,6 +14,7 @@ p {
 .categories {
   display: flex;
   justify-content: flex-start;
+  margin: 1% 0;
 }
 .categories a {
   color: #fff;
@@ -98,11 +99,11 @@ p {
   display: flex;
   justify-content: space-between;
 }
-
-.nav-links a {
-  background-color: #0c4da2;
-  padding: 1% 2%;
+.nav-pre,
+.nav-next {
   width: 25%;
+  padding: 1% 2%;
+  background-color: #0c4da2;
   color: #fff;
   font-size: 16px;
   transition: ease all 0.5s;

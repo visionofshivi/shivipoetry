@@ -6,6 +6,7 @@ const {
   serveUrl,
   servePostContent,
   servePostCategory,
+  servePostTag,
   servePostNameAndUrl,
 } = require('../handlers/postHandlers');
 
@@ -17,6 +18,7 @@ postRouter.post('/postAuthor', servePostAuthor);
 postRouter.use('/post', express.static('public'));
 postRouter.post('/post/content', servePostContent);
 postRouter.post('/post/category', servePostCategory);
+postRouter.post('/post/tag', servePostTag);
 postRouter.post('/post/nameAndUrl', servePostNameAndUrl);
 postRouter.get('/post/:postUrl', serveUrl);
 

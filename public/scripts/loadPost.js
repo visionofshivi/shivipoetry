@@ -6,13 +6,18 @@ const getOptions = function (body, method = 'GET') {
   };
 };
 
-const getAuthor = function (authorId) {
-  fetch('/postAuthor', getOptions({authorId}, 'POST'))
+const postFetchAndRender = function (url, body, callback) {
+  fetch(url, getOptions(body, 'POST'))
     .then((res) => res.json())
-    .then((author) => {
-      const $author = getElement(`#author`);
-      $author.innerHTML = `<a class="author" href="../author/${author.userName}">${author.displayName}</a>`;
-    });
+    .then(callback);
+};
+
+const getAuthor = function (authorId) {
+  const renderAuthor = function ({userName, displayName}) {
+    const $author = getElement(`#author`);
+    $author.innerHTML = `<a class="author" href="../author/${userName}">${displayName}</a>`;
+  };
+  postFetchAndRender('/postAuthor', {authorId}, renderAuthor);
 };
 
 const showComments = function (count, commentStatus) {
@@ -24,29 +29,36 @@ const showComments = function (count, commentStatus) {
 };
 
 const getCategory = function (categories) {
-  if (categories.length) {
-    categories.forEach((category) => {
-      fetch('/post/category', getOptions({category}, 'POST'))
-        .then((res) => res.json())
-        .then(({name, url}) => {
-          const htmlData = `<a href="../category/${url}" class="category">${name}</a>`;
-          getElement('.categories').innerHTML += htmlData;
-        });
-    });
-  }
+  const renderCategory = function ({name, url}) {
+    const htmlData = `<a href="../category/${url}" class="category">${name}</a>`;
+    getElement('.categories').innerHTML += htmlData;
+  };
+  categories.forEach((category) => {
+    postFetchAndRender('/post/category', {category}, renderCategory);
+  });
 };
 
-const getNavLinks = function (links) {
-  links.forEach((link, index) => {
-    fetch('/post/nameAndUrl', getOptions({id: link}, 'POST'))
-      .then((res) => res.json())
-      .then(({name, url}) => {
-        const $nav = getElement('.nav-links');
-        const className = index ? 'nav-next' : 'nav-pre';
-        if (name && url)
-          $nav.innerHTML += `<a class="${className}" href="${url}">${name}</a>`;
-      });
-  });
+const getTag = function (tags) {
+  const renderTag = function ({name, url}) {
+    const htmlData = `<a href="../tag/${url}" class="tag-item">${name}</a>`;
+    getElement('.tags').innerHTML += htmlData;
+  };
+  tags.forEach((tag) => postFetchAndRender('/post/tag', {tag}, renderTag));
+};
+
+const renderLink = function (className) {
+  return ({name, url}) => {
+    const $nav = getElement(`#${className}`);
+    $nav.classList.add(className);
+    $nav.href = url;
+    $nav.innerText = name;
+  };
+};
+
+const getNavLinks = function (preLink, nextLink) {
+  const url = '/post/nameAndUrl';
+  postFetchAndRender(url, {id: preLink}, renderLink('nav-pre'));
+  postFetchAndRender(url, {id: nextLink}, renderLink('nav-next'));
 };
 
 const showContent = function (post) {
@@ -56,22 +68,18 @@ const showContent = function (post) {
     <div class="categories"></div>
     <div class="post-date-and-author">
       <div><a class="post-date">
-      ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss A')}</a></div>
+      ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
       <div id="author"></div>
       <div>${showComments(post.commentCount, post.commentStatus)}</div>
     </div>
     <div class="content">${post.content}</div>
-    <div class="tags">
-      <span class="tag-title">Tagged</span>
-      <a href="/" class="tag-item">HTML</a>
-      <a href="/" class="tag-item">Romantic</a>
-      <a href="/" class="tag-item">Love</a>
-    </div>
-    <div class="nav-links"></div>
+    <div class="tags"><span class="tag-title">Tagged</span></div>
+    <div class="nav-links"><a id="nav-pre"></a><a id="nav-next"></a></div>
     <div class="divider"></div>`;
     getAuthor(post.author);
     getCategory(post.categories);
-    getNavLinks([post.preLink, post.nextLink]);
+    getTag(post.tags);
+    getNavLinks(post.preLink, post.nextLink);
   }
   getElement('#content').innerHTML = htmlData;
 };
@@ -79,9 +87,7 @@ const showContent = function (post) {
 const loadPost = function () {
   const [, , , ...url] = window.location.href.split('/');
   const postUrl = url.join('/');
-  fetch('/post/content', getOptions({postUrl}, 'POST'))
-    .then((res) => res.json())
-    .then((data) => showContent(data));
+  postFetchAndRender('/post/content', {postUrl}, showContent);
 };
 
 window.onload = loadPost;

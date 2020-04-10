@@ -4,6 +4,21 @@ const {Post} = require('../models/post');
 const {Author} = require('../models/author');
 const {Category, Tag} = require('../models/tagsAndCategory');
 
+const findAndServe = function (Model, searchBy, res) {
+  Model.findOne(searchBy)
+    .then((data) => {
+      if (!data) res.status(404).send();
+      res.send(data);
+    })
+    .catch((e) => {
+      res.status(500).send();
+    });
+};
+
+const findByIdAndServe = function (Model, id, res) {
+  findAndServe(Model, {_id: id}, res);
+};
+
 const servePosts = function (req, res) {
   Post.find({})
     .then((post) => {
@@ -15,9 +30,7 @@ const servePosts = function (req, res) {
 };
 
 const servePostAuthor = function (req, res) {
-  Author.findById(req.body.authorId)
-    .then((author) => res.send(author))
-    .catch((e) => res.status(500).end());
+  findByIdAndServe(Author, req.body.authorId, res);
 };
 
 const serveUrl = function (req, res) {
@@ -30,25 +43,15 @@ const serveUrl = function (req, res) {
 
 const servePostContent = function (req, res) {
   const [, url] = req.body.postUrl.split('/');
-  Post.findOne({url})
-    .then((post) => {
-      if (!post) return res.status(404).send();
-      res.send(post);
-    })
-    .catch((e) => {
-      res.status(500).send();
-    });
+  findAndServe(Post, {url}, res);
 };
 
 const servePostCategory = function (req, res) {
-  Category.findById(req.body.category)
-    .then((category) => {
-      if (!category) return res.status(404).send();
-      res.send(category);
-    })
-    .catch((e) => {
-      res.status(500).send();
-    });
+  findByIdAndServe(Category, req.body.category, res);
+};
+
+const servePostTag = function (req, res) {
+  findByIdAndServe(Tag, req.body.tag, res);
 };
 
 const servePostNameAndUrl = function (req, res) {
@@ -68,5 +71,6 @@ module.exports = {
   serveUrl,
   servePostContent,
   servePostCategory,
+  servePostTag,
   servePostNameAndUrl,
 };

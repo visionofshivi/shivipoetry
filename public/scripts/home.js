@@ -27,7 +27,7 @@ const showPosts = function (postsData) {
         <a class="post-title" href="post/${post.url}">${post.title}</a>
         <div class="post-date-and-author">
           <div><a class="post-date" href="post/${post.url}">
-          ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss A')}</a></div>
+          ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
           <div id="${post.url}"">
             ${getAuthor(post.author, post.url)}
           </div>
