@@ -110,6 +110,7 @@ footer > a {
   color: #fff;
   font-size: 22px;
   display: inline-block;
+  text-transform: capitalize;
 }
 
 .post-date-and-author {

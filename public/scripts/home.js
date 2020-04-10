@@ -28,17 +28,13 @@ const showPosts = function (postsData) {
         <div class="post-date-and-author">
           <div><a class="post-date" href="post/${post.url}">
           ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
-          <div id="${post.url}"">
-            ${getAuthor(post.author, post.url)}
-          </div>
+          <div id="${post.url}"">${getAuthor(post.author, post.url)}</div>
           <div>
             ${getComments(post.commentCount, post.url, post.commentStatus)}
           </div>
         </div>
         <div class="post-content">
-          <span class="content">
-          ${post.content.slice(0, 150).split('<br>').join('')}
-          </span>
+          <span class="content"> ${post.content.slice(0, 150)} </span>
           <span class="read-more">
             <a href="post/${post.url}">Read More...</a>
           </span>

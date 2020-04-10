@@ -36,7 +36,7 @@ const servePostAuthor = function (req, res) {
 const serveUrl = function (req, res) {
   const pathUrl = path.join(__dirname, '../../templates/post.html');
   fs.readFile(pathUrl, 'utf8', (error, data) => {
-    if (error) return res.status(404).send();
+    if (error) return res.status(500).send();
     res.send(data);
   });
 };
