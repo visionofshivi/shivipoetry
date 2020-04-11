@@ -8,7 +8,12 @@ const authorSchema = new mongoose.Schema({
   registeredDate: {type: Number},
   status: {type: String},
   displayName: {type: String},
-  posts: {type: Array},
+});
+
+authorSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'author',
 });
 
 const Author = mongoose.model('Author', authorSchema);

@@ -5,13 +5,14 @@ const {Post} = require('../models/post');
 const {Author} = require('../models/author');
 const {Category, Tag} = require('../models/tagsAndCategory');
 
-const findAndServe = function (Model, findBody, res) {
-  Model.findOne(findBody)
-    .then((data) => {
-      if (!data) return res.status(404).send();
-      res.send(data);
-    })
-    .catch((e) => res.status(500).send());
+const findAndServe = async function (Model, findBody, res) {
+  try {
+    const result = await Model.findOne(findBody);
+    if (!result) return res.status(404).send();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send();
+  }
 };
 
 const serveByUrl = function (req, res) {
@@ -22,27 +23,37 @@ const serveByUrl = function (req, res) {
   });
 };
 
-const servePostsIds = function (Model, name, res) {
-  findAndServe(Model, {url: name}, res);
+const servePosts = function (result, res) {
+  result.posts.forEach(async (post, index) => {
+    result.posts[index] = await post.populate('author').execPopulate();
+    if (index == result.posts.length - 1) {
+      res.send(result.posts.reverse());
+    }
+  });
 };
 
-const serveSelectorPosts = function (req, res) {
-  const [, modelName] = req.path.split('/');
+const serveSelectorPosts = async function (req, res) {
+  const {key, value} = req.params;
   const models = {category: Category, author: Author, tag: Tag};
-  servePostsIds(models[modelName], req.params.name, res);
+  const Model = models[key];
+  if (key === 'author') {
+    try {
+      const result = await Model.findOne({userName: value});
+      await result.populate('posts').execPopulate();
+      if (!result) return res.status(404).send();
+      servePosts(result, res);
+    } catch (e) {
+      res.status(500).send();
+    }
+  }
 };
 
 const servePostContent = function (req, res) {
   findAndServe(Post, {_id: req.body.id}, res);
 };
 
-const servePostAuthor = function (req, res) {
-  findAndServe(Author, {_id: req.body.authorId}, res);
-};
-
 module.exports = {
   serveByUrl,
   serveSelectorPosts,
   servePostContent,
-  servePostAuthor,
 };

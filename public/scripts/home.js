@@ -1,17 +1,8 @@
-const getAuthor = function (authorId, divId) {
-  fetch('/postAuthor', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({authorId}),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      const $author = getElement(`#${divId}`);
-      $author.innerHTML = `<a class="author" href="author/${data.userName}">${data.displayName}</a>`;
-    });
+const showAuthor = function ({userName, displayName}) {
+  return `<a class="author" href="author/${userName}">${displayName}</a>`;
 };
 
-const getComments = function (count, url, commentStatus) {
+const showComments = function (count, url, commentStatus) {
   let htmlString = '';
   if (commentStatus === 'open' && count) {
     htmlString = `<a class="comments" href="post/${url}">${count} comments</a>`;
@@ -28,9 +19,9 @@ const showPosts = function (postsData) {
         <div class="post-date-and-author">
           <div><a class="post-date" href="post/${post.url}">
           ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
-          <div id="${post.url}"">${getAuthor(post.author, post.url)}</div>
+          <div>${showAuthor(post.author)}</div>
           <div>
-            ${getComments(post.commentCount, post.url, post.commentStatus)}
+            ${showComments(post.commentCount, post.url, post.commentStatus)}
           </div>
         </div>
         <div class="post-content">
@@ -54,8 +45,4 @@ const renderPosts = function () {
     .then(showPosts);
 };
 
-const renderData = function () {
-  renderPosts();
-};
-
-window.onload = renderData;
+window.onload = renderPosts;

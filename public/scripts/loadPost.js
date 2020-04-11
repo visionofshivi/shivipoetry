@@ -12,12 +12,8 @@ const postFetchAndRender = function (url, body, callback) {
     .then(callback);
 };
 
-const getAuthor = function (authorId) {
-  const renderAuthor = function ({userName, displayName}) {
-    const $author = getElement(`#author`);
-    $author.innerHTML = `<a class="author" href="../author/${userName}">${displayName}</a>`;
-  };
-  postFetchAndRender('/postAuthor', {authorId}, renderAuthor);
+const showAuthor = function ({userName, displayName}) {
+  return `<a class="author" href="../author/${userName}">${displayName}</a>`;
 };
 
 const showComments = function (count, commentStatus) {
@@ -28,58 +24,50 @@ const showComments = function (count, commentStatus) {
   return htmlString;
 };
 
-const getCategory = function (categories) {
-  const renderCategory = function ({name, url}) {
-    const htmlData = `<a href="../category/${url}" class="category">${name}</a>`;
-    getElement('.categories').innerHTML += htmlData;
-  };
-  categories.forEach((category) => {
-    postFetchAndRender('/post/category', {category}, renderCategory);
+const showCategory = function (categories) {
+  const categoriesHtml = categories.map(({id}) => {
+    return `<a href="../category/${id.url}" class="category">${id.name}</a>`;
   });
+  return categoriesHtml.join('');
 };
 
-const getTag = function (tags) {
-  const renderTag = function ({name, url}) {
-    const htmlData = `<a href="../tag/${url}" class="tag-item">${name}</a>`;
-    getElement('.tags').innerHTML += htmlData;
-  };
-  tags.forEach((tag) => postFetchAndRender('/post/tag', {tag}, renderTag));
+const showTag = function (tags) {
+  const tagsHtml = tags.map(({id}) => {
+    return `<a href="../tag/${id.url}" class="tag-item">${id.name}</a>`;
+  });
+  return tagsHtml.join('');
 };
 
-const renderLink = function (className) {
-  return ({name, url}) => {
-    const $nav = getElement(`#${className}`);
-    $nav.classList.add(className);
-    $nav.href = url;
-    $nav.innerText = name;
-  };
+const getLink = function (link, className) {
+  let linkHtml = '<a></a>';
+  if (link) {
+    linkHtml = `<a href="${link.url}" class="${className}">${link.title}</a>`;
+  }
+  return linkHtml;
 };
 
-const getNavLinks = function (preLink, nextLink) {
-  const url = '/post/nameAndUrl';
-  postFetchAndRender(url, {id: preLink}, renderLink('nav-pre'));
-  postFetchAndRender(url, {id: nextLink}, renderLink('nav-next'));
+const showNavLinks = function (preLink, nextLink) {
+  const preLinkHtml = getLink(preLink, 'nav-pre');
+  return preLinkHtml + getLink(nextLink, 'nav-next');
 };
 
 const showContent = function (post) {
   let htmlData = `<div class="post-title"><h1>No Data Found</h1></div>`;
   if (post.content !== '') {
     htmlData = `<div class="post-title"><h1>${post.title}</h1></div>
-    <div class="categories"></div>
+    <div class="categories">${showCategory(post.categories)}</div>
     <div class="post-date-and-author">
       <div><a class="post-date">
       ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
-      <div id="author"></div>
+      <div>${showAuthor(post.author)}</div>
       <div>${showComments(post.commentCount, post.commentStatus)}</div>
     </div>
     <div class="content">${post.content}</div>
-    <div class="tags"><span class="tag-title">Tagged</span></div>
-    <div class="nav-links"><a id="nav-pre"></a><a id="nav-next"></a></div>
+    <div class="tags"><span class="tag-title">Tagged</span>
+      <span>${showTag(post.tags)}</span>
+    </div>
+    <div class="nav-links">${showNavLinks(post.preLink, post.nextLink)}</div>
     <div class="divider"></div>`;
-    getAuthor(post.author);
-    getCategory(post.categories);
-    getTag(post.tags);
-    getNavLinks(post.preLink, post.nextLink);
   }
   getElement('#content').innerHTML = htmlData;
 };

@@ -4,7 +4,6 @@ const {
   serveByUrl,
   serveSelectorPosts,
   servePostContent,
-  servePostAuthor,
 } = require('../handlers/postsByHandlers');
 
 const selectPosts = new express.Router();
@@ -14,11 +13,8 @@ selectPosts.use('/tag', express.static('public'));
 selectPosts.use('/author', express.static('public'));
 
 selectPosts.post('/selector/postContent', servePostContent);
-selectPosts.post('/selector/postAuthor', servePostAuthor);
 
-selectPosts.get('/category/posts/:name', serveSelectorPosts);
-selectPosts.get('/tag/posts/:name', serveSelectorPosts);
-selectPosts.get('/author/posts/:name', serveSelectorPosts);
+selectPosts.get('/posts/:key/:value', serveSelectorPosts);
 
 selectPosts.get('/category/:name', serveByUrl);
 selectPosts.get('/tag/:name', serveByUrl);
