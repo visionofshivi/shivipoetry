@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {serveByUrl, serveSelectorPosts} = require('../handlers/postsByHandlers');
+const {serveByUrl, serveSelectorPosts} = require('../handlers/postsBy');
 
 const selectPosts = new express.Router();
 

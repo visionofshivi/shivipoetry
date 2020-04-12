@@ -1,7 +1,7 @@
 const express = require('express');
 require('./db/connectDB');
-const {postRouter} = require('./routers/postRouter');
-const {postsByRouter} = require('./routers/postsByRouter');
+const {postRouter} = require('./routers/post');
+const {postsByRouter} = require('./routers/postsBy');
 
 const app = express();
 app.use(express.static('public'));
