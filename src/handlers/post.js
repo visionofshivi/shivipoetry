@@ -7,7 +7,7 @@ const servePosts = async function (req, res) {
       .populate('author', ['displayName', 'userName'])
       .sort({date: 1})
       .skip(0)
-      .limit(15);
+      .limit(5);
     res.send(posts);
   } catch (e) {
     res.status(500).send();

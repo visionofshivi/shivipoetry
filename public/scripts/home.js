@@ -10,6 +10,11 @@ const showComments = function (count, url, commentStatus) {
   return htmlString;
 };
 
+const showPagination = function () {
+  const $pagination = getElement('.pagination');
+  console.log('Pagination');
+};
+
 const showPosts = function (postsData) {
   const $postContent = getElement('#posts');
   const htmlPostData = postsData.map((post) => {
@@ -35,6 +40,7 @@ const showPosts = function (postsData) {
     </div>`;
   });
   $postContent.innerHTML = htmlPostData.join('');
+  showPagination();
 };
 
 const renderPosts = function () {
