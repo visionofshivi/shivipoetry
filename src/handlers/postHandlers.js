@@ -4,13 +4,12 @@ const {Post} = require('../models/post');
 
 const servePosts = async function (req, res) {
   try {
-    const posts = await Post.find({});
-    posts.forEach(async (post, index) => {
-      posts[index] = await post.populate('author').execPopulate();
-      if (index == posts.length - 1) {
-        res.send(posts.reverse());
-      }
-    });
+    const posts = await Post.find()
+      .populate('author', ['displayName', 'userName'])
+      .sort({date: 1})
+      .skip(0)
+      .limit(15);
+    res.send(posts);
   } catch (e) {
     res.status(500).send();
   }
@@ -29,11 +28,11 @@ const servePostContent = async function (req, res) {
   try {
     const post = await Post.findOne({url});
     await post
-      .populate('author')
-      .populate('preLink')
-      .populate('nextLink')
-      .populate('tags.id')
-      .populate('categories.id')
+      .populate('author', ['displayName', 'userName'])
+      .populate('preLink', ['title', 'url'])
+      .populate('nextLink', ['title', 'url'])
+      .populate('tags.id', ['name', 'url'])
+      .populate('categories.id', ['name', 'url'])
       .execPopulate();
     if (!post) res.status(404).send();
     res.send(post);
