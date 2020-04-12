@@ -43,7 +43,7 @@ const showPosts = function (postsData) {
   showPagination();
 };
 
-const renderPosts = function () {
+const main = function () {
   fetch('/posts')
     .then((res) => {
       if (res.ok) return res.json();
@@ -51,4 +51,4 @@ const renderPosts = function () {
     .then(showPosts);
 };
 
-window.onload = renderPosts;
+window.onload = main;

@@ -72,10 +72,10 @@ const showContent = function (post) {
   getElement('#content').innerHTML = htmlData;
 };
 
-const loadPost = function () {
+const main = function () {
   const [, , , ...url] = window.location.href.split('/');
   const postUrl = url.join('/');
   postFetchAndRender('/post/content', {postUrl}, showContent);
 };
 
-window.onload = loadPost;
+window.onload = main;

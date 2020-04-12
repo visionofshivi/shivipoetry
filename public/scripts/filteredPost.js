@@ -53,12 +53,10 @@ const showAuthorsPosts = function ({posts, author}) {
   showPosts(postsWithAuthor);
 };
 
-const renderPosts = function () {
+const main = function () {
   const [, , , selector, selectElement] = window.location.href.split('/');
   fetch(`/posts/${selector}/${selectElement}`)
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
       if (selector == 'author') return showAuthorsPosts(data);
       showPosts(data);
@@ -66,4 +64,4 @@ const renderPosts = function () {
   getElement('.page-title').innerHTML = `${selector} : ${selectElement}`;
 };
 
-window.onload = renderPosts;
+window.onload = main;

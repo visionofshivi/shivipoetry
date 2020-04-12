@@ -33,11 +33,11 @@ const animateScroll = function () {
   }, 0.5);
 };
 
-const main = function () {
+const scrollTop = function () {
   fixedMenuBar(getElement('#top-menu'));
   const $top = getElement('.top-arrow');
   scrollFunction($top);
   $top.addEventListener('click', animateScroll);
 };
 
-window.onscroll = main;
+window.onscroll = scrollTop;
