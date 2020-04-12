@@ -13,8 +13,8 @@ const PostSchema = new mongoose.Schema({
   type: {type: String, trim: true},
   commentStatus: {type: String},
   commentCount: {type: Number},
-  tags: [{id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}}],
-  categories: [{id: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}}],
+  tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+  categories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category'}],
 });
 
 const Post = mongoose.model('Post', PostSchema);

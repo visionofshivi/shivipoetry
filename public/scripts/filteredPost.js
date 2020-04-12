@@ -11,7 +11,6 @@ const showComments = function (count, url, commentStatus) {
 };
 
 const showAllPost = function (postsData) {
-  const $postContent = getElement('#posts');
   const htmlPostData = postsData.map((post) => {
     return `<div class="post">
       <div class="post-card">
@@ -34,6 +33,7 @@ const showAllPost = function (postsData) {
       <div class="post-divider"></div>
     </div>`;
   });
+  const $postContent = getElement('#posts');
   $postContent.innerHTML = htmlPostData.join('');
 };
 
@@ -45,13 +45,24 @@ const showPosts = function (posts) {
   showAllPost(posts);
 };
 
+const showAuthorsPosts = function ({posts, author}) {
+  const postsWithAuthor = posts.map((post) => {
+    post.author = {displayName: author.displayName, userName: author.userName};
+    return post;
+  });
+  showPosts(postsWithAuthor);
+};
+
 const renderPosts = function () {
   const [, , , selector, selectElement] = window.location.href.split('/');
   fetch(`/posts/${selector}/${selectElement}`)
     .then((res) => {
       if (res.ok) return res.json();
     })
-    .then(showPosts);
+    .then((data) => {
+      if (selector == 'author') return showAuthorsPosts(data);
+      showPosts(data);
+    });
   getElement('.page-title').innerHTML = `${selector} : ${selectElement}`;
 };
 

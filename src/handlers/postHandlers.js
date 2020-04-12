@@ -1,6 +1,5 @@
-const fs = require('fs');
-const path = require('path');
 const {Post} = require('../models/post');
+const {serveTemplate} = require('./utils');
 
 const servePosts = async function (req, res) {
   try {
@@ -16,11 +15,7 @@ const servePosts = async function (req, res) {
 };
 
 const serveUrl = function (req, res) {
-  const pathUrl = path.join(__dirname, '../../templates/post.html');
-  fs.readFile(pathUrl, 'utf8', (error, data) => {
-    if (error) return res.status(500).send();
-    res.send(data);
-  });
+  serveTemplate('post.html', res);
 };
 
 const servePostContent = async function (req, res) {
@@ -31,8 +26,8 @@ const servePostContent = async function (req, res) {
       .populate('author', ['displayName', 'userName'])
       .populate('preLink', ['title', 'url'])
       .populate('nextLink', ['title', 'url'])
-      .populate('tags.id', ['name', 'url'])
-      .populate('categories.id', ['name', 'url'])
+      .populate('tags', ['name', 'url'])
+      .populate('categories', ['name', 'url'])
       .execPopulate();
     if (!post) res.status(404).send();
     res.send(post);

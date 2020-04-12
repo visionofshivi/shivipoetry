@@ -25,15 +25,15 @@ const showComments = function (count, commentStatus) {
 };
 
 const showCategory = function (categories) {
-  const categoriesHtml = categories.map(({id}) => {
-    return `<a href="../category/${id.url}" class="category">${id.name}</a>`;
+  const categoriesHtml = categories.map(({name, url}) => {
+    return `<a href="../category/${url}" class="category">${name}</a>`;
   });
   return categoriesHtml.join('');
 };
 
 const showTag = function (tags) {
-  const tagsHtml = tags.map(({id}) => {
-    return `<a href="../tag/${id.url}" class="tag-item">${id.name}</a>`;
+  const tagsHtml = tags.map(({name, url}) => {
+    return `<a href="../tag/${url}" class="tag-item">${name}</a>`;
   });
   return tagsHtml.join('');
 };
