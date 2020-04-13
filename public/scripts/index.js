@@ -10,11 +10,6 @@ const showComments = function (count, url, commentStatus) {
   return htmlString;
 };
 
-const showPagination = function () {
-  const $pagination = getElement('.pagination');
-  console.log('Pagination');
-};
-
 const showPosts = function (postsData) {
   const $postContent = getElement('#posts');
   const htmlPostData = postsData.map((post) => {
@@ -40,15 +35,23 @@ const showPosts = function (postsData) {
     </div>`;
   });
   $postContent.innerHTML = htmlPostData.join('');
-  showPagination();
+};
+
+const fetchPosts = function (pageNo) {
+  const options = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({pageNo}),
+  };
+  fetch('/posts', options)
+    .then((res) => res.json())
+    .then(showPosts);
 };
 
 const main = function () {
-  fetch('/posts')
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .then(showPosts);
+  fetchPosts(1);
+  fetchPagination('/posts/pagination');
+  setTimeout(addListenerOnPages, 0);
 };
 
 window.onload = main;

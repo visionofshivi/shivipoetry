@@ -53,15 +53,31 @@ const showAuthorsPosts = function ({posts, author}) {
   showPosts(postsWithAuthor);
 };
 
-const main = function () {
-  const [, , , selector, selectElement] = window.location.href.split('/');
-  fetch(`/posts/${selector}/${selectElement}`)
+const getPosts = function (selector, selectElement, pageNo) {
+  const options = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({pageNo}),
+  };
+  fetch(`/posts/${selector}/${selectElement}`, options)
     .then((res) => res.json())
     .then((data) => {
       if (selector == 'author') return showAuthorsPosts(data);
       showPosts(data);
     });
   getElement('.page-title').innerHTML = `${selector} : ${selectElement}`;
+};
+
+const fetchPosts = function (pageNo) {
+  const [, , , selector, selectElement] = window.location.href.split('/');
+  getPosts(selector, selectElement, pageNo);
+};
+
+const main = function () {
+  const [, , , selector, selectElement] = window.location.href.split('/');
+  getPosts(selector, selectElement, 1);
+  fetchPagination(`/posts/pagination/${selector}/${selectElement}`);
+  setTimeout(addListenerOnPages, 0);
 };
 
 window.onload = main;

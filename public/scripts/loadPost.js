@@ -1,17 +1,3 @@
-const getOptions = function (body, method = 'GET') {
-  return {
-    method,
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(body),
-  };
-};
-
-const postFetchAndRender = function (url, body, callback) {
-  fetch(url, getOptions(body, 'POST'))
-    .then((res) => res.json())
-    .then(callback);
-};
-
 const showAuthor = function ({userName, displayName}) {
   return `<a class="author" href="../author/${userName}">${displayName}</a>`;
 };
@@ -72,10 +58,17 @@ const showContent = function (post) {
   getElement('#content').innerHTML = htmlData;
 };
 
-const main = function () {
+const loadPostContent = function () {
   const [, , , ...url] = window.location.href.split('/');
   const postUrl = url.join('/');
-  postFetchAndRender('/post/content', {postUrl}, showContent);
+  const options = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({postUrl}),
+  };
+  fetch('/post/content', options)
+    .then((res) => res.json())
+    .then(showContent);
 };
 
-window.onload = main;
+window.onload = loadPostContent;

@@ -45,6 +45,7 @@
   font-size: 16px;
   transition: ease-in all 0.2s;
 }
+
 .pagination > div:hover {
   background-color: #ccc;
   border-color: #888;
@@ -54,4 +55,7 @@
   color: #fff;
   border-color: #999;
   pointer-events: none;
+}
+.hidden {
+  display: none;
 }

@@ -1,9 +1,16 @@
 const express = require('express');
 
-const {servePosts, serveUrl, servePostContent} = require('../handlers/post');
+const {
+  servePosts,
+  serveNoOfPages,
+  serveUrl,
+  servePostContent,
+} = require('../handlers/post');
 
 const postRouter = new express.Router();
-postRouter.get('/posts', servePosts);
+
+postRouter.post('/posts', servePosts);
+postRouter.get('/posts/pagination', serveNoOfPages);
 postRouter.use('/post', express.static('public'));
 postRouter.post('/post/content', servePostContent);
 postRouter.get('/post/:postUrl', serveUrl);

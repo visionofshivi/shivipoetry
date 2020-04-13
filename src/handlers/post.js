@@ -1,14 +1,25 @@
 const {Post} = require('../models/post');
 const {serveTemplate} = require('./utils');
+const LIMIT = 10;
 
 const servePosts = async function (req, res) {
+  const {pageNo} = req.body;
   try {
     const posts = await Post.find()
       .populate('author', ['displayName', 'userName'])
       .sort({date: 1})
-      .skip(0)
-      .limit(5);
+      .skip(LIMIT * (pageNo - 1))
+      .limit(LIMIT);
     res.send(posts);
+  } catch (e) {
+    res.status(500).send();
+  }
+};
+
+const serveNoOfPages = async function (req, res) {
+  try {
+    const posts = await Post.find();
+    res.send({pages: posts.length / LIMIT});
   } catch (e) {
     res.status(500).send();
   }
@@ -36,4 +47,4 @@ const servePostContent = async function (req, res) {
   }
 };
 
-module.exports = {servePosts, serveUrl, servePostContent};
+module.exports = {servePosts, serveNoOfPages, serveUrl, servePostContent};
