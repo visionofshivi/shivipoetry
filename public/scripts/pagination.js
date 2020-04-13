@@ -40,6 +40,7 @@ const renderPagination = function (currentPage) {
 };
 
 const showPagination = function ({pages}) {
+  if (pages === 1) return;
   const pagesArray = new Array(pages).fill('');
   const html = pagesArray.map((p, index) => {
     return `<div id="page_${index + 1}">${index + 1}</div>`;
