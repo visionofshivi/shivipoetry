@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./poetCss/style.css" />
+    <link rel="stylesheet" href="./poetCss/login.css" />
+    <script src="./poetScripts/login.js"></script>
+    <title>$hivipoetry</title>
+  </head>
+  <body>
+    <div class="center-container">
+      <div class="card-title">$hivipoetry</div>
+      <div class="card-container">
+        <div class="actions">
+          <div class="active-action" id="login">Login</div>
+          <div id="sign-up">Signup</div>
+        </div>
+        <form id="sign-up-form" class="hidden">
+          <div class="input">
+            <label> Username : <span class="required">*</span></label>
+            <input id="username" type="text" name="username" required />
+          </div>
+          <div class="input">
+            <label>Name : <span class="required">*</span></label>
+            <input id="name" type="text" name="name" required />
+          </div>
+          <div class="input">
+            <label>Email : <span class="required">*</span></label>
+            <input id="email" type="email" name="email" required />
+          </div>
+          <div class="input">
+            <label> Password : <span class="required">*</span></label>
+            <input id="password" type="password" name="password" required />
+          </div>
+          <div class="input">
+            <label> Confirm Password : <span class="required">*</span> </label>
+            <input
+              id="cnf-password"
+              type="password"
+              name="cnf-password"
+              required
+            />
+          </div>
+          <div class="submit">
+            <input type="submit" value="Signup" class="btn" id="submit" />
+          </div>
+        </form>
+
+        <form id="login-form">
+          <div class="error">*credentials are not matched</div>
+          <div class="input">
+            <label> Username : <span class="required">*</span></label>
+            <input id="username" type="text" name="username" required />
+          </div>
+          <div class="input">
+            <label> Password : <span class="required">*</span></label>
+            <input id="password" type="password" name="password" required />
+          </div>
+          <div class="submit">
+            <input type="submit" value="Login" class="btn" id="login" />
+          </div>
+        </form>
+      </div>
+      <div class="back-link">
+        <a href="/">Back to shivipoetry</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+.center-container {
+  position: absolute;
+  top: 16vh;
+  left: 35vw;
+  width: 28vw;
+}
+.card-title {
+  font-size: 32px;
+}
+.card-container {
+  border: 1px solid #0c4da2;
+  margin: 2% 0;
+}
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #0c4da2;
+  font-size: 20px;
+  padding: 2%;
+  color: #fff;
+}
+.actions > div {
+  padding: 2% 4%;
+  text-align: center;
+  cursor: pointer;
+}
+.active-action {
+  transition: ease all 0.5s;
+  border-bottom: 2px solid #fff;
+  pointer-events: none;
+}
+form {
+  padding: 2%;
+  font-weight: 400;
+  background-color: #eee;
+}
+.input {
+  width: 90%;
+  margin: 4%;
+}
+form label {
+  font-size: 18px;
+  color: #333;
+}
+.required {
+  color: #f00;
+}
+form input {
+  font-size: 18px;
+  background-color: #fff;
+  padding: 1%;
+  outline: 0;
+  margin-top: 1%;
+  width: 100%;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+  width: 92%;
+  margin: 4%;
+}
+.submit > .btn {
+  padding: 3%;
+  width: 50%;
+  background-color: #0c4da2;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: ease-in background-color 0.2s;
+}
+.submit > .btn:hover {
+  background-color: #032081;
+}
+.error {
+  padding: 2%;
+  padding-bottom: 0;
+  font-size: 14px;
+  text-align: center;
+  color: red;
+}
+.back-link {
+  text-align: center;
+}
+.back-link a {
+  color: #0c4da2;
+  text-decoration: none;
+}
+.back-link a::before {
+  content: '\2190';
+}
+.back-link a:hover {
+  color: #032081;
+}
+
+.hidden {
+  display: none;
+}
