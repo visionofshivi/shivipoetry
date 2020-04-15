@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./poetCss/style.css" />
+    <link rel="stylesheet" href="./poetCss/login.css" />
+    <script src="./poetScripts/login.js"></script>
+    <title>$hivipoetry</title>
+  </head>
+  <body>
+    <div class="center-container">
+      <div class="title">Poet</div>
+      <div class="card-container">
+        <div class="card-title">Login</div>
+        <form id="login-form">
+          <div class="error"></div>
+          <div class="input">
+            <label> Username : <span class="required">*</span></label>
+            <input type="text" name="username" required />
+          </div>
+          <div class="input">
+            <label> Password : <span class="required">*</span></label>
+            <input type="password" name="password" required />
+          </div>
+          <div class="submit">
+            <input type="submit" value="Login" class="btn" />
+          </div>
+        </form>
+        <div class="sibling-page">
+          * New poet <a href="./signup.html">Signup</a>
+        </div>
+      </div>
+      <div class="back-link">
+        <a href="/">Back to shivipoetry</a>
+      </div>
+    </div>
+  </body>
+</html>

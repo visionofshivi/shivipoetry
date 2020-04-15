@@ -4,35 +4,23 @@
   left: 35vw;
   width: 28vw;
 }
-.card-title {
+.title {
   font-size: 32px;
+  margin-bottom: 4%;
 }
 .card-container {
-  border: 1px solid #0c4da2;
+  border: 1px solid #7aa0d2;
   margin: 2% 0;
-}
-.actions {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: #0c4da2;
-  font-size: 20px;
   padding: 2%;
-  color: #fff;
+  background-color: #eee;
+  box-shadow: 0 0 16px #0c4da2;
 }
-.actions > div {
-  padding: 2% 4%;
+.card-title {
   text-align: center;
-  cursor: pointer;
-}
-.active-action {
-  transition: ease all 0.5s;
-  border-bottom: 2px solid #fff;
-  pointer-events: none;
+  font-size: 24px;
 }
 form {
-  padding: 2%;
   font-weight: 400;
-  background-color: #eee;
 }
 .input {
   width: 90%;
@@ -53,6 +41,13 @@ form input {
   margin-top: 1%;
   width: 100%;
 }
+#username-availability {
+  padding: 2%;
+  padding-bottom: 0;
+  font-size: 14px;
+  color: green;
+}
+
 .submit {
   display: flex;
   justify-content: center;
@@ -75,10 +70,19 @@ form input {
   padding: 2%;
   padding-bottom: 0;
   font-size: 14px;
-  text-align: center;
   color: red;
 }
+.sibling-page {
+  margin-left: 4%;
+}
+.sibling-page a {
+  color: #0c4da2;
+}
+.sibling-page a:hover {
+  color: #032081;
+}
 .back-link {
+  margin: 4%;
   text-align: center;
 }
 .back-link a {
@@ -92,6 +96,10 @@ form input {
   color: #032081;
 }
 
+.submit > .none-pointer {
+  pointer-events: none;
+  background-color: #7aa0d2;
+}
 .hidden {
   display: none;
 }

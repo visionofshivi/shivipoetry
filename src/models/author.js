@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const authorSchema = new mongoose.Schema({
-  name: {type: String},
-  userName: {type: String},
-  password: {type: String},
-  email: {type: String},
+  name: {type: String, trim: true, required: true},
+  userName: {type: String, trim: true, required: true, unique: true},
+  password: {type: String, trim: true, required: true},
+  email: {type: String, trim: true, required: true, unique: true},
   registeredDate: {type: Number},
-  status: {type: String},
+  status: {type: String, default: 'not approved'},
   displayName: {type: String},
 });
 

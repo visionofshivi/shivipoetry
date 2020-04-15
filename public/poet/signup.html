@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./poetCss/style.css" />
     <link rel="stylesheet" href="./poetCss/login.css" />
-    <script src="./poetScripts/login.js"></script>
+    <script src="./poetScripts/signup.js"></script>
     <title>$hivipoetry</title>
   </head>
   <body>
     <div class="center-container">
-      <div class="card-title">$hivipoetry</div>
+      <div class="title">Poet</div>
       <div class="card-container">
-        <div class="actions">
-          <div class="active-action" id="login">Login</div>
-          <div id="sign-up">Signup</div>
-        </div>
-        <form id="sign-up-form" class="hidden">
+        <div class="card-title">Signup</div>
+        <form id="sign-up-form">
           <div class="input">
             <label> Username : <span class="required">*</span></label>
             <input id="username" type="text" name="username" required />
+            <span id="username-availability"></span>
           </div>
           <div class="input">
             <label>Name : <span class="required">*</span></label>
@@ -31,7 +29,13 @@
           </div>
           <div class="input">
             <label> Password : <span class="required">*</span></label>
-            <input id="password" type="password" name="password" required />
+            <input
+              id="password"
+              type="password"
+              name="password"
+              minlength="6"
+              required
+            />
           </div>
           <div class="input">
             <label> Confirm Password : <span class="required">*</span> </label>
@@ -41,26 +45,15 @@
               name="cnf-password"
               required
             />
+            <div class="error" id="cnf-password-checker"></div>
           </div>
           <div class="submit">
-            <input type="submit" value="Signup" class="btn" id="submit" />
+            <input type="submit" value="Signup" class="btn" />
           </div>
         </form>
-
-        <form id="login-form">
-          <div class="error">*credentials are not matched</div>
-          <div class="input">
-            <label> Username : <span class="required">*</span></label>
-            <input id="username" type="text" name="username" required />
-          </div>
-          <div class="input">
-            <label> Password : <span class="required">*</span></label>
-            <input id="password" type="password" name="password" required />
-          </div>
-          <div class="submit">
-            <input type="submit" value="Login" class="btn" id="login" />
-          </div>
-        </form>
+        <div class="sibling-page">
+          * Already poet <a href="./login.html">Login</a>
+        </div>
       </div>
       <div class="back-link">
         <a href="/">Back to shivipoetry</a>
