@@ -6,7 +6,7 @@ const servePosts = async function (req, res) {
   const {pageNo} = req.body;
   try {
     const posts = await Post.find()
-      .populate('author', ['displayName', 'userName'])
+      .populate('author', ['displayName', 'username'])
       .sort({date: 1})
       .skip(LIMIT * (pageNo - 1))
       .limit(LIMIT);
@@ -34,7 +34,7 @@ const servePostContent = async function (req, res) {
   try {
     const post = await Post.findOne({url});
     await post
-      .populate('author', ['displayName', 'userName'])
+      .populate('author', ['displayName', 'username'])
       .populate('preLink', ['title', 'url'])
       .populate('nextLink', ['title', 'url'])
       .populate('tags', ['name', 'url'])

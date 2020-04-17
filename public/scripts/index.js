@@ -1,5 +1,5 @@
-const showAuthor = function ({userName, displayName}) {
-  return `<a class="author" href="author/${userName}">${displayName}</a>`;
+const showAuthor = function ({username, displayName}) {
+  return `<a class="author" href="author/${username}">${displayName}</a>`;
 };
 
 const showComments = function (count, url, commentStatus) {

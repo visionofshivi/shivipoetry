@@ -8,9 +8,9 @@ const serveByUrl = function (req, res) {
   serveTemplate('postsBy.html', res);
 };
 
-const serveAuthorsPosts = async function (res, userName, pageNo) {
+const serveAuthorsPosts = async function (res, username, pageNo) {
   try {
-    const result = await Author.findOne({userName});
+    const result = await Author.findOne({username});
     await result
       .populate({
         path: 'posts',
@@ -58,7 +58,7 @@ const serveSelectorPagination = async function (req, res) {
   const models = {
     category: {model: Category, findBy: 'url'},
     tag: {model: Tag, findBy: 'url'},
-    author: {model: Author, findBy: 'userName'},
+    author: {model: Author, findBy: 'username'},
   };
   const Model = models[key].model;
   const findBy = {};

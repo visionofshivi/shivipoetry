@@ -1,27 +1,55 @@
 const {Author} = require('../models/author');
+const {serveTemplate} = require('./utils');
 
 const serveIsAvailableUsername = async function (req, res) {
-  const result = await Author.findOne({userName: req.body.username});
-  const isAvailable = result === null;
-  res.send({isAvailable});
+  const {username} = req.body;
+  try {
+    const result = await Author.findOne({username});
+    const isAvailable = result === null;
+    res.send({isAvailable});
+  } catch (e) {
+    res.status(500).send();
+  }
 };
 
-const registerPoet = function (req, res) {
+const registerPoet = async function (req, res) {
   const {username, name, email, password} = req.body;
   const poet = {
     name,
-    userName: username,
+    username,
     password,
     email,
     registeredDate: new Date(),
     status: 'not approved',
     displayName: name,
   };
-  const author = new Author(poet);
-  author
-    .save()
-    .then((data) => res.send(data))
-    .catch((e) => res.status(500).send());
+  try {
+    const author = new Author(poet);
+    const data = await author.save();
+    res.send(data);
+  } catch (e) {
+    res.status(400).send();
+  }
 };
 
-module.exports = {serveIsAvailableUsername, registerPoet};
+const serveLoginPoet = async function (req, res) {
+  const {username, password} = req.body;
+  try {
+    const author = await Author.findByCredentials(username, password);
+    const token = await author.generateAuthToken();
+    res.cookie('token', `token ${token}`).send();
+  } catch (e) {
+    res.status(400).send();
+  }
+};
+
+const serveDashboard = function (req, res) {
+  serveTemplate('dashboard.html', res);
+};
+
+module.exports = {
+  serveIsAvailableUsername,
+  registerPoet,
+  serveLoginPoet,
+  serveDashboard,
+};

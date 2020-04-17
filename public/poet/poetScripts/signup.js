@@ -43,8 +43,8 @@ const listenerOnSubmitBtn = function () {
   $signup.addEventListener('submit', (event) => {
     event.preventDefault();
     const signupData = getFormDetails();
-    clearInputs();
     fetch('/poet/register', getOptions(signupData, 'POST')).then((res) => {
+      if (res.ok) clearInputs();
       showMessage(res.ok);
     });
   });

@@ -13,18 +13,19 @@
       <div class="title">Poet</div>
       <div class="card-container">
         <div class="card-title">Login</div>
+        <div class="status error-status"></div>
         <form id="login-form">
           <div class="error"></div>
           <div class="input">
             <label> Username : <span class="required">*</span></label>
-            <input type="text" name="username" required />
+            <input type="text" id="username" required />
           </div>
           <div class="input">
             <label> Password : <span class="required">*</span></label>
-            <input type="password" name="password" required />
+            <input type="password" id="password" required />
           </div>
           <div class="submit">
-            <input type="submit" value="Login" class="btn" />
+            <input type="submit" value="Login" class="btn none-pointer" />
           </div>
         </form>
         <div class="sibling-page">

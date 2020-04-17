@@ -1,5 +1,5 @@
-const showAuthor = function ({userName, displayName}) {
-  return `<a class="author" href="../author/${userName}">${displayName}</a>`;
+const showAuthor = function ({username, displayName}) {
+  return `<a class="author" href="../author/${username}">${displayName}</a>`;
 };
 
 const showComments = function (count, url, commentStatus) {
@@ -46,8 +46,9 @@ const showPosts = function (posts) {
 };
 
 const showAuthorsPosts = function ({posts, author}) {
+  const {username, displayName} = author;
   const postsWithAuthor = posts.map((post) => {
-    post.author = {displayName: author.displayName, userName: author.userName};
+    post.author = {displayName, username};
     return post;
   });
   showPosts(postsWithAuthor);
