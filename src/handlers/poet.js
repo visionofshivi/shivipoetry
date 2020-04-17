@@ -2,7 +2,7 @@ const {Author} = require('../models/author');
 
 const serveIsAvailableUsername = async function (req, res) {
   const result = await Author.findOne({userName: req.body.username});
-  const isAvailable = result !== null;
+  const isAvailable = result === null;
   res.send({isAvailable});
 };
 
