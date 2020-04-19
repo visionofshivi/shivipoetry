@@ -12,9 +12,10 @@ const poetRouter = new express.Router();
 
 poetRouter.use(cookieParser());
 poetRouter.use('/poet', express.static('public/author'));
-poetRouter.use('/poet/me', auth, express.static('public/author/auth'));
 poetRouter.post('/poet/username/available', serveIsAvailableUsername);
 poetRouter.post('/poet/register', registerPoet);
 poetRouter.post('/poet/login', serveLoginPoet);
+
+poetRouter.use('/poet/me', auth, express.static('public/author/auth'));
 
 module.exports = {poetRouter};

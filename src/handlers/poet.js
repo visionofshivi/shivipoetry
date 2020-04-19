@@ -25,7 +25,7 @@ const registerPoet = async function (req, res) {
   try {
     const author = new Author(poet);
     const data = await author.save();
-    res.send(data);
+    res.status(201).send(data);
   } catch (e) {
     res.status(400).send();
   }

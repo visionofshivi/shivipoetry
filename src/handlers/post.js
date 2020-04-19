@@ -19,7 +19,7 @@ const servePosts = async function (req, res) {
 const serveNoOfPages = async function (req, res) {
   try {
     const posts = await Post.find();
-    res.send({pages: posts.length / LIMIT});
+    res.send({pages: Math.ceil(posts.length / LIMIT)});
   } catch (e) {
     res.status(500).send();
   }
