@@ -1,3 +1,11 @@
+const getOptions = function (body) {
+  return {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body),
+  };
+};
+
 const showAuthor = function ({username, displayName}) {
   return `<a class="author" href="../author/${username}">${displayName}</a>`;
 };
@@ -37,38 +45,66 @@ const showNavLinks = function (preLink, nextLink) {
   return preLinkHtml + getLink(nextLink, 'nav-next');
 };
 
+const postAndAuthor = function (post) {
+  return `<div class="post-date-and-author">
+  <div><a class="post-date">
+  ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
+  <div>${showAuthor(post.author)}</div>
+  <div>${showComments(post.commentCount, post.commentStatus)}</div>
+</div>`;
+};
+
 const showContent = function (post) {
   let htmlData = `<div class="post-title"><h1>No Data Found</h1></div>`;
   if (post.content !== '') {
     htmlData = `<div class="post-title"><h1>${post.title}</h1></div>
     <div class="categories">${showCategory(post.categories)}</div>
-    <div class="post-date-and-author">
-      <div><a class="post-date">
-      ${moment(post.date).format('MMM DD, YYYY  hh:mm:ss a')}</a></div>
-      <div>${showAuthor(post.author)}</div>
-      <div>${showComments(post.commentCount, post.commentStatus)}</div>
-    </div>
+    ${postAndAuthor(post)}
     <div class="content">${post.content}</div>
     <div class="tags"><span class="tag-title">Tagged</span>
       <span>${showTag(post.tags)}</span>
     </div>
-    <div class="nav-links">${showNavLinks(post.preLink, post.nextLink)}</div>
-    <div class="divider"></div>`;
+    <div class="nav-links">${showNavLinks(post.preLink, post.nextLink)}</div>`;
   }
   getElement('#content').innerHTML = htmlData;
 };
 
-const loadPostContent = function () {
-  const [, , , ...url] = window.location.href.split('/');
-  const postUrl = url.join('/');
-  const options = {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({postUrl}),
-  };
-  fetch('/post/content', options)
+const loadPostContent = function (postUrl) {
+  fetch('/post/content', getOptions({postUrl}))
     .then((res) => res.json())
     .then(showContent);
 };
 
-window.onload = loadPostContent;
+const showRelatedPost = function (posts) {
+  const htmlData = posts.map((post) => {
+    return ` <div class="post-card">
+    <a class="post-title" href="${post.url}">${post.title}</a>
+    ${postAndAuthor(post)}
+    <div class="related-post-content">
+      <span class="content"> ${post.content.slice(0, 150)} </span>
+      <span class="read-more">
+        <a href="${post.url}">Read More...</a>
+      </span>
+    </div>
+  </div>
+  <div class="post-divider"></div>
+  
+  `;
+  });
+  getElement('#related-post').innerHTML = htmlData;
+};
+
+const loadRelatedPost = function () {
+  fetch('/post/relatedPost')
+    .then((res) => res.json())
+    .then(showRelatedPost);
+};
+
+const main = function () {
+  const [, , , ...url] = window.location.href.split('/');
+  const postUrl = url.join('/');
+  loadPostContent(postUrl);
+  loadRelatedPost(postUrl);
+};
+
+window.onload = main();

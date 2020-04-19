@@ -48,6 +48,23 @@ describe('Post content', () => {
   });
 });
 
+describe('Related posts', () => {
+  beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
+
+  test('Should serve related post ', async () => {
+    const res = await request(app).get('/post/relatedPost').expect(200);
+    expect(res.body.length).toBe(3);
+  });
+
+  // test('Should serve 500 error if post not found', async () => {
+  //   await request(app)
+  //     .post('/post/content')
+  //     .send({postUrl: 'post/not-found'})
+  //     .expect(500);
+  // });
+});
+
 describe('Post content by url', () => {
   beforeEach(setupDatabase);
   afterEach(cleanupDatabase);

@@ -1,5 +1,5 @@
 const {Post} = require('../models/post');
-const {serveTemplate} = require('./utils');
+const {serveTemplate, shuffle} = require('./utils');
 const LIMIT = 10;
 
 const servePosts = async function (req, res) {
@@ -47,4 +47,24 @@ const servePostContent = async function (req, res) {
   }
 };
 
-module.exports = {servePosts, serveNoOfPages, serveUrl, servePostContent};
+const serveRelatedPosts = async function (req, res) {
+  try {
+    const posts = await Post.find().populate('author', [
+      'displayName',
+      'username',
+    ]);
+    const randomPosts = shuffle(posts).slice(0, 6);
+    if (!randomPosts) res.status(404).send();
+    res.send(randomPosts);
+  } catch (e) {
+    res.status(500).send();
+  }
+};
+
+module.exports = {
+  servePosts,
+  serveNoOfPages,
+  serveUrl,
+  servePostContent,
+  serveRelatedPosts,
+};

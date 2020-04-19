@@ -9,4 +9,11 @@ const serveTemplate = function (fileName, res) {
   });
 };
 
-module.exports = {serveTemplate};
+const shuffle = function (array) {
+  for (let time = 0; time < 8; time++) {
+    array.sort(() => Math.random() - 0.5);
+  }
+  return array;
+};
+
+module.exports = {serveTemplate, shuffle};
