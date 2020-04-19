@@ -11,7 +11,7 @@ const auth = async function (req, res, next) {
     req.author = author;
     next();
   } catch (e) {
-    res.redirect('login.html');
+    res.status(400).redirect('../login.html');
   }
 };
 

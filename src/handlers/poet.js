@@ -1,5 +1,4 @@
 const {Author} = require('../models/author');
-const {serveTemplate} = require('./utils');
 
 const serveIsAvailableUsername = async function (req, res) {
   const {username} = req.body;
@@ -43,13 +42,4 @@ const serveLoginPoet = async function (req, res) {
   }
 };
 
-const serveDashboard = function (req, res) {
-  serveTemplate('dashboard.html', res);
-};
-
-module.exports = {
-  serveIsAvailableUsername,
-  registerPoet,
-  serveLoginPoet,
-  serveDashboard,
-};
+module.exports = {serveIsAvailableUsername, registerPoet, serveLoginPoet};
