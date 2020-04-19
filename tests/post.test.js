@@ -1,9 +1,10 @@
 const request = require('supertest');
 const {app} = require('../src/router');
-const {postOne, setupDatabase} = require('./fixtures/db');
+const {postOne, setupDatabase, cleanupDatabase} = require('./fixtures/db');
 
 describe('Post', () => {
   beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
 
   test('Should serve the posts according to page no', async () => {
     const res = await request(app).post('/posts').send({pageNo: 1}).expect(200);
@@ -22,11 +23,36 @@ describe('Post', () => {
 });
 
 describe('Static page', () => {
-  test('Should serve the static page', () => {
-    request(app).get('/post/css/style.css').expect(200);
+  test('Should serve the static page', async () => {
+    await request(app).get('/post/css/style.css').expect(200);
+  });
+});
+
+describe('Post content', () => {
+  beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
+
+  test('Should serve the post content of given url', async () => {
+    const res = await request(app)
+      .post('/post/content')
+      .send({postUrl: 'post/post-url-1'})
+      .expect(200);
+    expect(res.body.url).toBe('post-url-1');
   });
 
-  test('Should not serve the static page if page not exists', () => {
-    request(app).get('/post/notExists.html').expect(400);
+  test('Should serve 500 error if post not found', async () => {
+    await request(app)
+      .post('/post/content')
+      .send({postUrl: 'post/not-found'})
+      .expect(500);
+  });
+});
+
+describe('Post content by url', () => {
+  beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
+
+  test('Should serve the post content by given url', async () => {
+    await request(app).get('/post/post-url-1').expect(200);
   });
 });

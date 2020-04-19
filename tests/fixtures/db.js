@@ -31,6 +31,16 @@ const authorTwo = {
 const postOneId = new mongoose.Types.ObjectId();
 const postTwoId = new mongoose.Types.ObjectId();
 const postThreeId = new mongoose.Types.ObjectId();
+const tagOneId = new mongoose.Types.ObjectId();
+const tagTwoId = new mongoose.Types.ObjectId();
+const categoryOneId = new mongoose.Types.ObjectId();
+const categoryTwoId = new mongoose.Types.ObjectId();
+
+const tagOne = {_id: tagOneId, name: 'Tag 1', url: 'tag-1'};
+const tagTwo = {_id: tagTwoId, name: 'Tag 2', url: 'tag-2'};
+
+const categoryOne = {_id: categoryOneId, name: 'Category 1', url: 'category-1'};
+const categoryTwo = {_id: categoryTwoId, name: 'Category 2', url: 'category-2'};
 
 const postOne = {
   _id: postOneId,
@@ -39,11 +49,13 @@ const postOne = {
   content: 'This is the first post.',
   title: 'Post 1',
   status: 'approved',
-  url: 'post-1',
+  url: 'post-url-1',
   type: 'post',
   commentStatus: 'open',
   commentCount: 0,
   nextLink: postTwoId,
+  tags: [tagOneId, tagTwoId],
+  categories: [categoryOneId, categoryTwoId],
 };
 
 const postTwo = {
@@ -59,6 +71,8 @@ const postTwo = {
   commentCount: 4,
   preLink: postOneId,
   nextLink: postThreeId,
+  tags: [tagOneId],
+  categories: [categoryOneId],
 };
 
 const postThree = {
@@ -73,16 +87,27 @@ const postThree = {
   commentStatus: 'open',
   commentCount: 5,
   preLink: postTwoId,
+  tags: [tagTwoId],
+  categories: [categoryTwoId],
 };
 
-const setupDatabase = async () => {
-  await Author.deleteMany();
-  await Post.deleteMany();
+const setupDatabase = async function () {
   await new Author(authorOne).save();
   await new Author(authorTwo).save();
   await new Post(postOne).save();
   await new Post(postTwo).save();
   await new Post(postThree).save();
+  await new Tag(tagOne).save();
+  await new Tag(tagTwo).save();
+  await new Category(categoryOne).save();
+  await new Category(categoryTwo).save();
+};
+
+const cleanupDatabase = async function () {
+  await Author.deleteMany();
+  await Post.deleteMany();
+  await Tag.deleteMany();
+  await Category.deleteMany();
 };
 
 module.exports = {
@@ -94,4 +119,5 @@ module.exports = {
   postTwo,
   postThree,
   setupDatabase,
+  cleanupDatabase,
 };

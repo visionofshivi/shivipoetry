@@ -3,3 +3,5 @@ dataINeed.txt
 playGround/
 database/
 config/
+coverage/
+coverage/*

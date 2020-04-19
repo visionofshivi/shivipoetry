@@ -2,7 +2,7 @@ const request = require('supertest');
 const {app} = require('../src/router');
 const {Author} = require('../src/models/author');
 
-const {authorOne, setupDatabase} = require('./fixtures/db');
+const {authorOne, setupDatabase, cleanupDatabase} = require('./fixtures/db');
 
 describe('Should give static page', () => {
   test('Should serve static page from poet url', async () => {
@@ -15,6 +15,7 @@ describe('Should give static page', () => {
 
 describe('Poet signup and login', () => {
   beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
 
   test('Should give result true if username is available', async () => {
     await request(app)
@@ -90,6 +91,7 @@ describe('Poet signup and login', () => {
 
 describe('Need authentication', () => {
   beforeEach(setupDatabase);
+  afterEach(cleanupDatabase);
 
   test('Should serve static page from poet url', async () => {
     await request(app)
