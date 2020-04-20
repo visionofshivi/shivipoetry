@@ -1,3 +1,15 @@
 language: node_js
 node_js:
   - 12
+
+env:
+  - SECRET_CODE=secretcodefortesting
+  - MONGODB_URL=mongodb+srv://travis:test@cluster0-qcj32.mongodb.net/shivipoetry?retryWrites=true&w=majority
+
+services:
+  - mongodb
+
+before_script:
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - sleep 15
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
