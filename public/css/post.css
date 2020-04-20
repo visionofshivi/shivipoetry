@@ -82,6 +82,9 @@ p {
   font-style: normal;
   margin-right: 3px;
 }
+.tag-items {
+  width: 100%;
+}
 .tag-item {
   border: 1px solid #e1e1e1;
   margin: 0 1%;

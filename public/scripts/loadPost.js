@@ -62,7 +62,7 @@ const showContent = function (post) {
     ${postAndAuthor(post)}
     <div class="content">${post.content}</div>
     <div class="tags"><span class="tag-title">Tagged</span>
-      <span>${showTag(post.tags)}</span>
+      <span class="tag-items">${showTag(post.tags)}</span>
     </div>
     <div class="nav-links">${showNavLinks(post.preLink, post.nextLink)}</div>`;
   }
